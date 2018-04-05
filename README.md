@@ -19,3 +19,4 @@ To use, provide the url to this repository when creating a project.
 sls create -u https://github.com/ServerlessOpsIO/sls-aws-python-36 -p <PATH> -n <NAME>
 ```
 
+# ACM-Elasticsearch-Publisher
