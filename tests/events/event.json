@@ -1,0 +1,32 @@
+{
+  "Records": [
+    {
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "<EVENT_SUBSCRIPTION_ARN>",
+      "EventSource": "aws:sns",
+      "Sns": {
+        "SignatureVersion": "1",
+        "Timestamp": "1970-01-01T00:00:00.000Z",
+        "Signature": "EXAMPLE",
+        "SigningCertUrl": "EXAMPLE",
+        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+        "Message": "{\"identity\": {\"LineItemId\": \"2itxkilgmvgiza5eylfgcbh7jbyhmkzwl3krany4vnzcgq2carda\", \"TimeInterval\": \"2018-04-05T01:00:00Z/2018-04-05T02:00:00Z\"}, \"bill\": {\"InvoiceId\": null, \"BillingEntity\": \"AWS\", \"BillType\": \"Anniversary\", \"PayerAccountId\": \"349603509961\", \"BillingPeriodStartDate\": \"2018-04-01T00:00:00Z\", \"BillingPeriodEndDate\": \"2018-05-01T00:00:00Z\"}, \"lineItem\": {\"UsageAccountId\": \"820506766567\", \"LineItemType\": \"Usage\", \"UsageStartDate\": \"2018-04-05T01:00:00Z\", \"UsageEndDate\": \"2018-04-05T02:00:00Z\", \"ProductCode\": \"AmazonS3\", \"UsageType\": \"DataTransfer-Out-Bytes\", \"Operation\": \"ListBucket\", \"AvailabilityZone\": null, \"UsageAmount\": \"0.0000312570\", \"NormalizationFactor\": null, \"NormalizedUsageAmount\": null, \"CurrencyCode\": \"USD\", \"UnblendedRate\": \"0.0000000000\", \"UnblendedCost\": \"0.0000000000\", \"BlendedRate\": \"0.0000000000\", \"BlendedCost\": \"0.0000000000\", \"LineItemDescription\": \"$0.000 per GB - data transfer out under the monthly global free tier\", \"TaxType\": null, \"LegalEntity\": \"\\\"Amazon Web Services\"}, \"product\": {\"ProductName\": \" Inc.\\\"\", \"alarmType\": \"Amazon Simple Storage Service\", \"availability\": null, \"description\": null, \"durability\": null, \"endpointType\": null, \"fromLocation\": null, \"fromLocationType\": \"US East (N. Virginia)\", \"group\": \"AWS Region\", \"groupDescription\": null, \"location\": null, \"locationType\": null, \"messageDeliveryFrequency\": null, \"messageDeliveryOrder\": null, \"operation\": null, \"productFamily\": null, \"queueType\": \"Data Transfer\", \"region\": null, \"requestDescription\": \"us-east-1\", \"requestType\": null, \"routingTarget\": null, \"routingType\": null, \"servicecode\": null, \"servicename\": \"AWSDataTransfer\", \"sku\": \"AWS Data Transfer\", \"storageClass\": \"HQEH3ZWJVT46JHRG\", \"storageMedia\": null, \"toLocation\": null, \"toLocationType\": \"External\", \"transferType\": \"Other\", \"usagetype\": \"AWS Outbound\", \"version\": \"DataTransfer-Out-Bytes\", \"volumeType\": null}, \"pricing\": {\"publicOnDemandCost\": null, \"publicOnDemandRate\": \"0.0000028131\", \"term\": \"0.0900000000\", \"unit\": null}, \"reservation\": {\"AmortizedUpfrontCostForUsage\": null, \"AmortizedUpfrontFeeForBillingPeriod\": null, \"EffectiveCost\": null, \"EndTime\": null, \"ModificationStatus\": null, \"NormalizedUnitsPerReservation\": null, \"RecurringFeeForUsage\": null, \"StartTime\": null, \"TotalReservedNormalizedUnits\": null, \"TotalReservedUnits\": null, \"UnitsPerReservation\": null, \"UnusedAmortizedUpfrontFeeForBillingPeriod\": null, \"UnusedNormalizedUnitQuantity\": null, \"UnusedQuantity\": null, \"UnusedRecurringFee\": null, \"UpfrontValue\": null}}",
+        "MessageAttributes": {
+          "Test": {
+            "Type": "String",
+            "Value": "TestString"
+          },
+          "TestBinary": {
+            "Type": "Binary",
+            "Value": "TestBinary"
+          }
+        },
+        "Type": "Notification",
+        "UnsubscribeUrl": "EXAMPLE",
+        "TopicArn": "<TOPIC_ARN>",
+        "Subject": "TestInvoke"
+      }
+    }
+  ]
+}
+

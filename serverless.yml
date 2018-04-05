@@ -1,0 +1,84 @@
+# <DESCRIBE SERVICE>
+service: ACM-Elasticsearch-Publisher
+
+plugins:
+  - serverless-python-requirements
+  - serverless-iam-roles-per-function
+
+custom:
+  stage: "${opt:stage, env:SLS_STAGE, 'dev'}"
+  profile: "${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}"
+  log_level: "${env:LOG_LEVEL, 'INFO'}"
+  #acm_cfn_stack: "${'env:ACM_CFN_STACK', 'ApplicationCostMonitoring-${self:custom.stage}'}"
+  acm_cfn_stack: 'aws-serverless-repository-ApplicationCostMonitoring'
+
+  elasticsearch:
+    host: "${env:ES_HOST}"
+    port: "${env:PORT, '9243'}"
+    index: "${env:ES_INDEX, 'application-cost-monitoring'}"
+    doc_type: "${env:ES_DOC_TYPE, 'line_item'}"
+    username: "${env:ES_USERNAME}"
+    password: "${env:ES_PASSWORD}"
+
+  pythonRequirements:
+    dockerizePip: false
+
+provider:
+  name: aws
+  profile: ${self:custom.profile}
+  stage: ${self:custom.stage}
+  runtime: python3.6
+  environment:
+    LOG_LEVEL: ${self:custom.log_level}
+    ES_HOST: ${self:custom.elasticsearch.host}
+    ES_PORT: ${self:custom.elasticsearch.port}
+    ES_INDEX: ${self:custom.elasticsearch.index}
+    ES_DOC_TYPE: ${self:custom.elasticsearch.doc_type}
+    ES_USERNAME: ${self:custom.elasticsearch.username}
+    ES_PASSWORD: ${self:custom.elasticsearch.password}
+
+functions:
+  ESPublisher:
+    handler: handlers/es_publisher.handler
+    description: "Publish data to ES"
+    memorySize: 128
+    timeout: 30
+
+resources:
+  Parameters:
+    AwsAdmStackName:
+      Type: String
+      Description: 'AWS Application Monitoring CloudFormation stack name'
+      Default: '${self:custom.acm_cfn_stack}'
+
+  Resources:
+    SnsSubscriptionESBillingItemWriter:
+      Type: 'AWS::SNS::Subscription'
+      Properties:
+        TopicArn:
+          Fn::ImportValue:
+            Fn::Join:
+              - '-'
+              - - Ref: AwsAdmStackName
+                - 'BillingRecordsSnsTopicArn'
+        Protocol: lambda
+        Endpoint:
+          Fn::GetAtt:
+            - ESPublisherLambdaFunction
+            - Arn
+
+    # Needed because we're not setting the SNS event in the function section.
+    ESBillingItemWriterLambdaPermission:
+      Type: 'AWS::Lambda::Permission'
+      Properties:
+        Action: "lambda:InvokeFunction"
+        FunctionName:
+          Ref: ESPublisherLambdaFunction
+        Principal: 'sns.amazonaws.com'
+        SourceArn:
+          Fn::ImportValue:
+            Fn::Join:
+              - '-'
+              - - Ref: AwsAdmStackName
+                - 'BillingRecordsSnsTopicArn'
+
