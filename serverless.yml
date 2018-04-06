@@ -9,8 +9,7 @@ custom:
   stage: "${opt:stage, env:SLS_STAGE, 'dev'}"
   profile: "${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}"
   log_level: "${env:LOG_LEVEL, 'INFO'}"
-  #acm_cfn_stack: "${'env:ACM_CFN_STACK', 'ApplicationCostMonitoring-${self:custom.stage}'}"
-  acm_cfn_stack: 'aws-serverless-repository-ApplicationCostMonitoring'
+  acm_cfn_stack: "${env:ACM_CFN_STACK, 'ApplicationCostMonitoring-${self:custom.stage}'}"
 
   elasticsearch:
     host: "${env:ES_HOST}"
